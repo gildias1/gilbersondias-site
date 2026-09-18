@@ -52,6 +52,28 @@
   .cta{--lx:70%;--ly:25%}
   @keyframes luz{from{transform:translate3d(-4%,-3%,0) scale(1)}to{transform:translate3d(4%,5%,0) scale(1.12)}}
   .no-webgl #scene{display:none}
+
+  /* ---------- seções claras: papel, não tela ---------- */
+  .paper{overflow:clip}
+  .paper>.wrap{position:relative;z-index:2}
+  .paper::before{content:"";position:absolute;inset:-20%;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(34% 40% at var(--lx,85%) var(--ly,20%),rgba(184,116,26,.11),rgba(184,116,26,0) 70%),
+      radial-gradient(circle,rgba(25,24,22,.13) 1px,transparent 1.2px) 0 0/28px 28px;
+    animation:luz 26s ease-in-out infinite alternate;will-change:transform}
+  .paper::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+    background-size:180px 180px}
+  .tensao{--lx:12%;--ly:80%}
+  .servicos{--lx:88%;--ly:15%}
+  .filtro{--lx:20%;--ly:30%}
+  .sobre{--lx:85%;--ly:75%}
+  /* número da seção, fantasma, atrás do título */
+  .ghost{position:absolute;z-index:1;pointer-events:none;font-family:var(--serif);font-weight:500;font-size:clamp(200px,34vw,520px);line-height:1;letter-spacing:-.04em;color:var(--carvao);opacity:.045;user-select:none;will-change:transform}
+  .tensao .ghost{right:-.05em;top:-.1em}
+  .servicos .ghost{left:-.06em;bottom:-.18em}
+  .filtro .ghost{right:-.05em;bottom:-.16em}
+  .sobre .ghost{left:-.05em;top:-.12em}
   a{color:inherit}
   img{max-width:100%;display:block}
   h1,h2,h3,p{margin:0}
@@ -274,7 +296,8 @@
 </section>
 
 <!-- ===== TENSÃO ===== -->
-<section class="tensao">
+<section class="tensao paper">
+  <span class="ghost" aria-hidden="true" data-parallax="6">?</span>
   <div class="wrap grid">
     <div class="label" data-reveal><b>Antes de tudo</b><span>O problema</span></div>
     <div class="texto">
@@ -313,7 +336,8 @@
 </section>
 
 <!-- ===== SERVIÇOS ===== -->
-<section class="servicos" id="servicos">
+<section class="servicos paper" id="servicos">
+  <span class="ghost" aria-hidden="true" data-parallax="-5">2</span>
   <div class="wrap">
     <div class="intro">
       <div class="eyebrow" data-reveal>Serviços</div>
@@ -375,7 +399,8 @@
 </section>
 
 <!-- ===== FILTRO ===== -->
-<section class="filtro">
+<section class="filtro paper">
+  <span class="ghost" aria-hidden="true" data-parallax="5">ou</span>
   <div class="wrap">
     <h2 data-reveal>Isso é pra você se…</h2>
     <div class="cols">
@@ -401,7 +426,8 @@
 </section>
 
 <!-- ===== SOBRE ===== -->
-<section class="sobre" id="sobre">
+<section class="sobre paper" id="sobre">
+  <span class="ghost" aria-hidden="true" data-parallax="-6">GD</span>
   <div class="wrap grid">
     <div class="mono-block" data-reveal>
       <div class="avatar" aria-hidden="true">GD<i></i></div>
