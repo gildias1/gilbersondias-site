@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gilberson Dias — Presença digital e soluções com IA para pequenas empresas</title>
+<meta name="description" content="Coloco pequenas empresas no caminho de quem já procura — site, Google Meu Negócio, Google Ads e Meta Ads — e faço a operação rodar com menos esforço, com automações e sistemas com IA.">
+<meta property="og:title" content="Gilberson Dias — No caminho de quem já procura.">
+<meta property="og:description" content="Presença digital e soluções com IA pra pequenas empresas serem encontradas — e funcionarem com menos esforço.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gilbersondias.com.br/">
+<meta name="theme-color" content="#191816">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23191816'/%3E%3Crect x='11' y='11' width='10' height='10' fill='%23E0A33A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* ---------- tokens (identidade/design-guide.md) ---------- */
+  :root{
+    --pedra:#F1EFEA; --pedra-2:#E9E5DD; --carvao:#191816; --carvao-2:#232120;
+    --cinza:#6B665E; --cinza-dk:#A29C92; --linha:#D9D4CB; --linha-dk:#35322E;
+    --ambar:#B8741A; --ambar-dk:#E0A33A;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    /* tema claro = base */
+    --bg:var(--pedra); --bg2:var(--pedra-2); --fg:var(--carvao); --fg2:var(--cinza); --line:var(--linha); --accent:var(--ambar);
+    --gutter:clamp(16px,5vw,64px);
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  .dark{ --bg:var(--carvao); --bg2:var(--carvao-2); --fg:var(--pedra); --fg2:var(--cinza-dk); --line:var(--linha-dk); --accent:var(--ambar-dk); }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{margin:0;background:var(--pedra);color:var(--carvao)}
+  body{font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+  section,header,footer{background:var(--bg);color:var(--fg)}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  h1,h2,h3,p{margin:0}
+  h1,h2,h3{text-wrap:balance}
+  .wrap{max-width:1240px;margin-inline:auto;padding-inline:var(--gutter)}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2.5vw,32px)}
+
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--accent);flex:none}
+  .mark{background:var(--accent);color:var(--carvao);padding:0 .14em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .lead{font-size:clamp(18px,1.6vw,21px);line-height:1.55;color:var(--fg2);max-width:52ch}
+  .serif-p{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3.2vw,40px);line-height:1.22;letter-spacing:-.01em;max-width:26ch}
+  .serif-p em{font-style:italic}
+  h2{font-family:var(--serif);font-weight:500;font-size:clamp(34px,4.6vw,60px);line-height:1.06;letter-spacing:-.02em}
+  h3{font-family:var(--sans);font-weight:600;font-size:20px;line-height:1.3}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:14px 24px;border-radius:4px;border:1px solid var(--fg);background:var(--fg);color:var(--bg);font-family:var(--sans);font-weight:600;font-size:15px;line-height:1;text-decoration:none;transition:background .2s,color .2s,transform .2s var(--ease)}
+  .btn:hover{background:transparent;color:var(--fg);transform:translateY(-1px)}
+  .btn.sec{background:transparent;color:var(--fg);border-color:var(--line)}
+  .btn.sec:hover{border-color:var(--fg)}
+  .btn svg{width:16px;height:16px;flex:none}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .btns{display:flex;flex-wrap:wrap;gap:12px}
+
+  /* wordmark */
+  .wm{display:inline-flex;align-items:baseline;gap:.18em;font-family:var(--serif);font-weight:500;letter-spacing:-.015em;line-height:1;text-decoration:none;white-space:nowrap}
+  .wm i{display:inline-block;width:.27em;height:.27em;background:var(--accent);transform:translateY(-.02em)}
+
+  /* ---------- nav ---------- */
+  .nav{position:sticky;top:0;z-index:20;background:var(--pedra);color:var(--carvao);border-bottom:1px solid transparent;transition:border-color .3s}
+  .nav.scrolled{border-bottom-color:var(--linha)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
+  .nav .wm{font-size:22px}
+  .nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-weight:600;font-size:14px}
+  .nav ul a{text-decoration:none;position:relative;padding-block:6px}
+  .nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ambar);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+  .nav ul a:hover::after{transform:scaleX(1)}
+  .nav .btn{min-height:42px;padding:11px 18px;font-size:14px}
+  @media (max-width:760px){.nav ul{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:clip;padding-block:clamp(72px,12vh,140px) clamp(64px,10vh,120px)}
+  .hero .grid{align-items:end;row-gap:40px}
+  .hero-title{grid-column:1/11;font-family:var(--serif);font-weight:500;font-size:clamp(3rem,8.6vw,8.4rem);line-height:.98;letter-spacing:-.025em;max-width:11ch}
+  .hero-title .line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+  .hero-title .line>span{display:block}
+  .hero-aside{grid-column:1/8;display:grid;gap:28px;margin-top:8px}
+  .hero-meta{grid-column:10/13;grid-row:1;align-self:start;display:grid;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);line-height:1.7}
+  .hero-meta span{display:block;padding-top:12px;border-top:1px solid var(--line)}
+  .hero .dot{position:absolute;right:calc(var(--gutter) * -1);bottom:-6vw;width:clamp(160px,28vw,420px);aspect-ratio:1;background:var(--ambar-dk);opacity:.16;pointer-events:none;will-change:transform}
+  @media (max-width:900px){
+    .hero-title{grid-column:1/13}
+    .hero-aside{grid-column:1/13}
+    .hero-meta{grid-column:1/13;grid-row:auto;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  }
+
+  /* ---------- tensão ---------- */
+  .tensao{padding-block:clamp(88px,14vh,160px);border-top:1px solid var(--line)}
+  .tensao .grid{row-gap:40px}
+  .tensao .label{grid-column:1/3;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+  .tensao .label b{display:block;color:var(--accent);font-weight:500;margin-bottom:6px}
+  .tensao .texto{grid-column:3/12;display:grid;gap:36px}
+  .tensao .serif-p{max-width:24ch}
+  .tensao .assinatura{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);display:flex;gap:10px;align-items:center}
+  .tensao .assinatura::before{content:"";width:24px;height:1px;background:var(--line)}
+  @media (max-width:900px){.tensao .label,.tensao .texto{grid-column:1/13}}
+  @media (min-width:901px){.tensao .label{writing-mode:vertical-rl;transform:rotate(180deg);justify-self:start;align-self:start;display:flex;gap:6px}.tensao .label b{margin:0}}
+
+  /* ---------- decisão (sticky) ---------- */
+  .decisao{border-top:1px solid var(--line)}
+  .decisao .stage{min-height:100svh;display:grid;align-content:center;padding-block:clamp(80px,12vh,140px)}
+  .decisao .head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;margin-bottom:clamp(40px,8vh,80px)}
+  .decisao .count{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2);font-variant-numeric:tabular-nums}
+  .steps{display:grid;gap:56px}
+  .step{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2.5vw,32px);row-gap:18px;align-items:start}
+  .step .n{grid-column:1/2;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--accent);padding-top:.9em}
+  .step .t{grid-column:2/10;font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,68px);line-height:1.04;letter-spacing:-.02em;max-width:14ch}
+  .step .d{grid-column:2/8;color:var(--fg2);font-size:clamp(16px,1.4vw,19px);max-width:44ch}
+  .step.final .t .mark{background:var(--accent);color:var(--carvao)}
+  @media (max-width:760px){.step .n{grid-column:1/13;padding:0}.step .t,.step .d{grid-column:1/13}}
+  /* com JS + desktop: as etapas sobrepõem no palco preso */
+  @media (min-width:901px){
+    .js .steps{position:relative;height:clamp(300px,42vh,460px);display:block}
+    .js .step{position:absolute;inset:0}
+  }
+
+  /* ---------- serviços ---------- */
+  .servicos{padding-block:clamp(88px,14vh,160px);border-top:1px solid var(--line)}
+  .servicos .intro{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2.5vw,32px);row-gap:20px;margin-bottom:clamp(48px,7vh,88px)}
+  .servicos .intro .eyebrow{grid-column:1/13}
+  .servicos .intro h2{grid-column:1/9}
+  .servicos .intro p{grid-column:9/13;align-self:end}
+  .frentes{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .frente{padding:clamp(28px,4vw,48px) 0;display:grid;gap:22px;align-content:start}
+  .frente+.frente{border-left:1px solid var(--line);padding-left:clamp(28px,4vw,56px)}
+  .frente:first-child{padding-right:clamp(28px,4vw,56px)}
+  .frente .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+  .frente h3{font-family:var(--serif);font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.015em}
+  .frente p{color:var(--fg2);max-width:40ch}
+  .frente ul{list-style:none;margin:8px 0 0;padding:0;display:grid}
+  .frente li{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:baseline;padding-block:14px;border-top:1px solid var(--line);font-weight:500}
+  .frente li::before{content:"";width:9px;height:9px;background:var(--accent);align-self:center}
+  .frente li small{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2)}
+  .frente .porta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);padding-top:14px;border-top:1px solid var(--line)}
+  @media (max-width:900px){
+    .servicos .intro h2,.servicos .intro p{grid-column:1/13}
+    .frentes{grid-template-columns:1fr}
+    .frente+.frente{border-left:0;border-top:1px solid var(--line);padding-left:0}
+    .frente:first-child{padding-right:0}
+  }
+
+  /* ---------- método ---------- */
+  .metodo{padding-block:clamp(88px,14vh,160px);border-top:1px solid var(--line)}
+  .metodo .grid{row-gap:48px}
+  .metodo .titulo{grid-column:1/6;position:sticky;top:96px;align-self:start;display:grid;gap:18px}
+  .metodo .titulo p{color:var(--fg2);max-width:32ch}
+  .metodo ol{grid-column:6/13;list-style:none;margin:0;padding:0;display:grid}
+  .metodo li{display:grid;grid-template-columns:56px 1fr;gap:18px;padding-block:32px;border-top:1px solid var(--line)}
+  .metodo li:last-child{border-bottom:1px solid var(--line)}
+  .metodo li .n{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--accent);padding-top:.55em}
+  .metodo li h3{font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.4vw,32px);line-height:1.15;letter-spacing:-.01em;margin-bottom:10px}
+  .metodo li p{color:var(--fg2);max-width:46ch}
+  @media (max-width:900px){.metodo .titulo{grid-column:1/13;position:static}.metodo ol{grid-column:1/13}}
+
+  /* ---------- filtro ---------- */
+  .filtro{padding-block:clamp(88px,14vh,160px);border-top:1px solid var(--line)}
+  .filtro h2{max-width:16ch;margin-bottom:clamp(40px,6vh,72px)}
+  .filtro .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px)}
+  .filtro .col{display:grid;gap:22px;align-content:start}
+  .filtro ul{list-style:none;margin:0;padding:0;display:grid}
+  .filtro li{display:grid;grid-template-columns:22px 1fr;gap:14px;align-items:start;padding-block:16px;border-top:1px solid var(--line);color:var(--fg)}
+  .filtro li::before{content:"";width:12px;height:12px;margin-top:8px;background:var(--accent)}
+  .filtro .nao li::before{background:transparent;border:1px solid var(--fg2);width:10px;height:10px}
+  .filtro .nao li{color:var(--fg2)}
+  .filtro .nota{grid-column:1/-1;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);padding-top:32px}
+  @media (max-width:760px){.filtro .cols{grid-template-columns:1fr}}
+
+  /* ---------- sobre ---------- */
+  .sobre{padding-block:clamp(88px,14vh,160px);border-top:1px solid var(--line)}
+  .sobre .grid{row-gap:40px;align-items:start}
+  .sobre .mono-block{grid-column:1/4;display:grid;gap:18px}
+  .sobre .avatar{width:clamp(96px,10vw,140px);aspect-ratio:1;background:var(--carvao);color:var(--pedra);display:grid;place-items:center;font-family:var(--serif);font-weight:500;font-size:clamp(40px,4.4vw,60px);letter-spacing:-.03em;position:relative}
+  .sobre .avatar i{position:absolute;right:16%;bottom:19%;width:11%;height:11%;background:var(--ambar-dk)}
+  .sobre .mono-block .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);line-height:1.8}
+  .sobre .texto{grid-column:5/12;display:grid;gap:26px}
+  .sobre .texto .serif-p{font-size:clamp(22px,2.6vw,32px);max-width:28ch}
+  .sobre .texto p:not(.serif-p){color:var(--fg2);max-width:56ch}
+  @media (max-width:900px){.sobre .mono-block,.sobre .texto{grid-column:1/13}}
+
+  /* ---------- CTA final ---------- */
+  .cta{padding-block:clamp(96px,16vh,180px);border-top:1px solid var(--line);position:relative;overflow:clip}
+  .cta .grid{row-gap:40px;align-items:end}
+  .cta h2{grid-column:1/10;font-size:clamp(38px,6vw,84px);max-width:13ch}
+  .cta .acoes{grid-column:1/8;display:grid;gap:22px}
+  .cta .acoes p{color:var(--fg2);max-width:44ch}
+  .cta .contato{grid-column:9/13;display:grid;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);line-height:1.7}
+  .cta .contato a{text-decoration:none;color:var(--fg);border-bottom:1px solid var(--line);padding-bottom:2px;width:max-content;max-width:100%;transition:border-color .2s,color .2s}
+  .cta .contato a:hover{border-bottom-color:var(--accent);color:var(--accent)}
+  .cta .dot{position:absolute;left:calc(var(--gutter) * -1);top:-8vw;width:clamp(140px,22vw,340px);aspect-ratio:1;background:var(--ambar-dk);opacity:.12;pointer-events:none;will-change:transform}
+  @media (max-width:900px){.cta h2,.cta .acoes,.cta .contato{grid-column:1/13}}
+
+  /* ---------- footer ---------- */
+  .foot{border-top:1px solid var(--line);padding-block:40px}
+  .foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 32px}
+  .foot .wm{font-size:22px}
+  .foot p,.foot a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);text-decoration:none}
+  .foot nav{display:flex;gap:20px;flex-wrap:wrap}
+  .foot a:hover{color:var(--accent)}
+
+  /* progresso */
+  .progress{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--ambar);transform:scaleX(0);transform-origin:left;z-index:30;pointer-events:none}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important;animation:none!important}
+    .progress{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="topo">
+  <div class="wrap">
+    <a class="wm" href="#topo" aria-label="Gilberson Dias — início">Gilberson Dias<i></i></a>
+    <ul>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#metodo">Como trabalho</a></li>
+      <li><a href="#sobre">Quem sou</a></li>
+    </ul>
+    <!-- TROCAR: número do WhatsApp (formato 55DDDNUMERO) -->
+    <a class="btn" href="https://wa.me/5500000000000?text=Oi%2C%20Gilberson.%20Quero%20conversar%20sobre%20a%20minha%20empresa." target="_blank" rel="noopener">Conversar</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero dark">
+  <div class="dot" data-parallax="-14"></div>
+  <div class="wrap grid">
+    <h1 class="hero-title">
+      <span class="line"><span>Sua empresa</span></span>
+      <span class="line"><span>no caminho de</span></span>
+      <span class="line"><span><span class="mark">quem já procura.</span></span></span>
+    </h1>
+    <div class="hero-meta" data-reveal>
+      <span>Presença digital<br>Soluções com IA</span>
+      <span>Pequenas empresas<br>e autônomos</span>
+    </div>
+    <div class="hero-aside" data-reveal>
+      <p class="lead">Presença digital e soluções com IA pra pequenas empresas serem encontradas — e funcionarem com menos esforço.</p>
+      <div class="btns">
+        <a class="btn" href="https://wa.me/5500000000000?text=Oi%2C%20Gilberson.%20Quero%20conversar%20sobre%20a%20minha%20empresa." target="_blank" rel="noopener">Conversar sobre a sua empresa
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a class="btn sec" href="#metodo">Ver como trabalho</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TENSÃO ===== -->
+<section class="tensao">
+  <div class="wrap grid">
+    <div class="label" data-reveal><b>Antes de tudo</b><span>O problema</span></div>
+    <div class="texto">
+      <p class="serif-p" data-reveal>Você pode ter um ótimo serviço, bons clientes e uma entrega de qualidade. Mas nada disso pesa na decisão de quem <em>ainda não sabe que sua empresa existe.</em></p>
+      <p class="serif-p" data-reveal>Enquanto você espera ser encontrado, outro negócio aparece no momento certo, apresenta uma solução e inicia a conversa primeiro.</p>
+      <p class="assinatura" data-reveal>É aqui que eu entro</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DECISÃO (sticky) ===== -->
+<section class="decisao dark" id="decisao">
+  <div class="stage wrap">
+    <div class="head">
+      <div class="eyebrow">Na hora da decisão</div>
+      <div class="count" aria-hidden="true"><span class="cur">01</span> / 03</div>
+    </div>
+    <div class="steps">
+      <div class="step" data-step="1">
+        <span class="n">01</span>
+        <p class="t">O cliente procura.</p>
+        <p class="d">Agora, no celular, com a necessidade na mão. Ele não quer conhecer empresas — quer resolver o problema dele hoje.</p>
+      </div>
+      <div class="step" data-step="2">
+        <span class="n">02</span>
+        <p class="t">Encontra o seu concorrente.</p>
+        <p class="d">Não o melhor. O que aparece. Perfil no Google atualizado, site que carrega, WhatsApp respondendo. Ele manda mensagem e a conversa começa lá.</p>
+      </div>
+      <div class="step final" data-step="3">
+        <span class="n">03</span>
+        <p class="t">Ou encontra <span class="mark">você.</span></p>
+        <p class="d">Tráfego pago não serve pra alcançar mais gente. Serve pra colocar sua empresa no caminho de quem já está procurando pelo que você oferece.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVIÇOS ===== -->
+<section class="servicos" id="servicos">
+  <div class="wrap">
+    <div class="intro">
+      <div class="eyebrow" data-reveal>Serviços</div>
+      <h2 data-reveal>Duas frentes. A peça é meio, o resultado é a empresa encontrada e operando melhor.</h2>
+      <p class="lead" data-reveal>Todo trabalho começa pela pergunta "o que isso vira pro dono?" — contato, agendamento, hora livre. Nunca "que peça bonita".</p>
+    </div>
+    <div class="frentes">
+      <article class="frente" data-reveal>
+        <span class="k">Frente 1</span>
+        <h3>Ser encontrado</h3>
+        <p>Aparecer no momento em que o cliente procura — e transformar isso em contato.</p>
+        <ul>
+          <li>Sites e landing pages <small>Carrega rápido, converte</small></li>
+          <li>Google Meu Negócio <small>Configuração e consultoria</small></li>
+          <li>Google Ads <small>Busca e local</small></li>
+          <li>Meta Ads <small>Instagram e Facebook</small></li>
+        </ul>
+        <span class="porta">Porta de entrada — a dor mais óbvia</span>
+      </article>
+      <article class="frente" data-reveal>
+        <span class="k">Frente 2</span>
+        <h3>Funcionar com menos esforço</h3>
+        <p>Tirar da rotina do dono o que não precisa dele, com automações e sistemas com IA.</p>
+        <ul>
+          <li>Atendimento automatizado <small>WhatsApp, site</small></li>
+          <li>Agendamento e follow-up <small>Sem esquecer ninguém</small></li>
+          <li>Relatórios e rotinas internas <small>O que importa, toda semana</small></li>
+          <li>Sistemas sob medida com IA <small>Pro que se repete</small></li>
+        </ul>
+        <span class="porta">Continuidade — pra quem já confia</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MÉTODO ===== -->
+<section class="metodo dark" id="metodo">
+  <div class="wrap grid">
+    <div class="titulo">
+      <div class="eyebrow" data-reveal>Como trabalho</div>
+      <h2 data-reveal>Três regras. Nenhuma delas é segredo.</h2>
+      <p data-reveal>Elas estão aqui porque é o que filtra: quem concorda com as três costuma ser cliente que vale a pena.</p>
+    </div>
+    <ol>
+      <li data-reveal>
+        <span class="n">01</span>
+        <div><h3>Começo pelo básico que dá resultado.</h3><p>Google Meu Negócio certo antes de anúncio. Site que carrega antes de tráfego. Anúncio antes do básico é dinheiro indo pra quem já estava pronto.</p></div>
+      </li>
+      <li data-reveal>
+        <span class="n">02</span>
+        <div><h3>Meço o que importa.</h3><p>Contato, ligação, mensagem, agendamento. Não curtida, não alcance. Se o número não vira conversa com cliente, ele não entra no relatório.</p></div>
+      </li>
+      <li data-reveal>
+        <span class="n">03</span>
+        <div><h3>Explico sem jargão.</h3><p>Você entende o que foi feito e por quê. Se não dá pra explicar simples, não tá pronto.</p></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== FILTRO ===== -->
+<section class="filtro">
+  <div class="wrap">
+    <h2 data-reveal>Isso é pra você se…</h2>
+    <div class="cols">
+      <div class="col" data-reveal>
+        <div class="eyebrow">Faz sentido</div>
+        <ul>
+          <li>Você já entrega bem, mas depende de indicação e não é encontrado por quem está procurando agora.</li>
+          <li>Perde horas por semana em tarefa repetitiva que um sistema resolveria.</li>
+          <li>Trata organização e presença digital como investimento, não como a primeira despesa a cortar.</li>
+        </ul>
+      </div>
+      <div class="col nao" data-reveal>
+        <div class="eyebrow" style="color:var(--fg2)">Não faz sentido</div>
+        <ul>
+          <li>Você quer "só um post" ou "só um site bonito", sem se importar se aquilo vira contato.</li>
+          <li>Escolhe fornecedor só pelo menor preço.</li>
+          <li>Espera resultado sem ajustar o básico: atendimento, horário atualizado, informação certa no Google.</li>
+        </ul>
+      </div>
+      <p class="nota" data-reveal>Se você se viu na coluna da esquerda, a conversa costuma render.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOBRE ===== -->
+<section class="sobre" id="sobre">
+  <div class="wrap grid">
+    <div class="mono-block" data-reveal>
+      <div class="avatar" aria-hidden="true">GD<i></i></div>
+      <p class="k">Gilberson Dias<br>Especialista em presença digital<br>e soluções com IA</p>
+    </div>
+    <div class="texto">
+      <p class="serif-p" data-reveal>Trabalho com donos de pequenas empresas que já entregam bem, mas não são encontrados por quem está procurando agora.</p>
+      <p data-reveal>Cuido de duas coisas: colocar a empresa no caminho de quem procura — site, Google Meu Negócio, anúncios — e tirar da rotina do dono o que não precisa dele, com automações e sistemas com IA.</p>
+      <p data-reveal>Toco sozinho, por escolha. Você fala direto com quem faz, e quem faz é quem responde.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta dark" id="contato">
+  <div class="dot" data-parallax="10"></div>
+  <div class="wrap grid">
+    <h2 data-reveal>Na hora da decisão, o cliente encontra <span class="mark">você</span> ou o seu concorrente?</h2>
+    <div class="acoes" data-reveal>
+      <p>Me conta o que a sua empresa faz e onde você acha que tá travando. Respondo com o que faria primeiro — sem proposta genérica.</p>
+      <div class="btns">
+        <a class="btn" href="https://wa.me/5500000000000?text=Oi%2C%20Gilberson.%20Quero%20conversar%20sobre%20a%20minha%20empresa." target="_blank" rel="noopener">Me chama no WhatsApp
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+    <div class="contato" data-reveal>
+      <span>Ou por e-mail</span>
+      <a href="mailto:contato@gilbersondias.com.br">contato@gilbersondias.com.br</a>
+      <span>Instagram</span>
+      <a href="https://instagram.com/gilbersondias" target="_blank" rel="noopener">@gilbersondias</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="wm" href="#topo">Gilberson Dias<i></i></a>
+    <nav aria-label="Rodapé">
+      <a href="#servicos">Serviços</a>
+      <a href="#metodo">Como trabalho</a>
+      <a href="#sobre">Quem sou</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <p>© <span id="ano">2026</span> Gilberson Dias · gilbersondias.com.br</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  document.documentElement.classList.add("js");
+  document.getElementById("ano").textContent = new Date().getFullYear();
+
+  var nav = document.querySelector(".nav");
+  var onScroll = function(){ nav.classList.toggle("scrolled", window.scrollY > 8); };
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  var mm = gsap.matchMedia();
+
+  /* movimento completo: sem reduced-motion */
+  mm.add("(prefers-reduced-motion: no-preference)", function(){
+    /* hero: linhas sobem uma a uma */
+    gsap.from(".hero-title .line > span", { yPercent: 110, duration: 1.1, stagger: 0.09, ease: "expo.out", delay: 0.1 });
+
+    /* reveals de entrada */
+    gsap.utils.toArray("[data-reveal]").forEach(function(el, i){
+      gsap.from(el, { y: 40, opacity: 0, duration: 1, ease: "power3.out",
+        scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" } });
+    });
+
+    /* barra de progresso */
+    gsap.to(".progress", { scaleX: 1, ease: "none",
+      scrollTrigger: { trigger: document.body, start: "top top", end: "bottom bottom", scrub: 0.3 } });
+
+    /* o ponto âmbar: parallax discreto */
+    gsap.utils.toArray("[data-parallax]").forEach(function(el){
+      var amt = parseFloat(el.dataset.parallax) || 10;
+      gsap.fromTo(el, { yPercent: -amt }, { yPercent: amt, ease: "none",
+        scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: true } });
+    });
+  });
+
+  /* seção-espetáculo: só no desktop e sem reduced-motion */
+  mm.add("(prefers-reduced-motion: no-preference) and (min-width: 901px)", function(){
+    var steps = gsap.utils.toArray(".decisao .step");
+    var cur = document.querySelector(".decisao .cur");
+    gsap.set(steps.slice(1), { opacity: 0, y: 40 });
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".decisao", start: "top top", end: "+=220%", pin: true, scrub: 1,
+        onUpdate: function(self){
+          var i = Math.min(2, Math.floor(self.progress * 3));
+          cur.textContent = ("0" + (i + 1));
+        }
+      }
+    });
+    tl.to({}, { duration: 0.6 })
+      .to(steps[0], { opacity: 0, y: -40, duration: 0.5 })
+      .to(steps[1], { opacity: 1, y: 0, duration: 0.5 }, "<0.15")
+      .to({}, { duration: 0.6 })
+      .to(steps[1], { opacity: 0, y: -40, duration: 0.5 })
+      .to(steps[2], { opacity: 1, y: 0, duration: 0.5 }, "<0.15")
+      .to({}, { duration: 0.8 });
+
+    return function(){ gsap.set(steps, { clearProps: "all" }); };
+  });
+
+  window.addEventListener("load", function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
