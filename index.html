@@ -137,8 +137,8 @@
   .tensao .label b{display:block;color:var(--accent);font-weight:500;margin-bottom:6px}
   .tensao .texto{grid-column:3/12;display:grid;gap:36px}
   .tensao .serif-p{max-width:24ch}
-  .tensao .assinatura{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);display:flex;gap:10px;align-items:center}
-  .tensao .assinatura::before{content:"";width:24px;height:1px;background:var(--line)}
+  .tensao .assinatura{font-family:var(--serif);font-style:italic;font-size:clamp(20px,1.8vw,24px);line-height:1.2;color:var(--fg);display:flex;gap:14px;align-items:center;margin-top:-8px}
+  .tensao .assinatura::before{content:"";width:28px;height:1px;background:var(--accent);flex:none}
   @media (max-width:900px){.tensao .label,.tensao .texto{grid-column:1/13}}
   @media (min-width:901px){.tensao .label{writing-mode:vertical-rl;transform:rotate(180deg);justify-self:start;align-self:start;display:flex;gap:6px}.tensao .label b{margin:0}}
 
@@ -302,7 +302,7 @@
     <div class="texto">
       <p class="serif-p" data-reveal>Você pode ter um ótimo serviço, bons clientes e uma entrega de qualidade. Mas nada disso pesa na decisão de quem <em>ainda não sabe que sua empresa existe.</em></p>
       <p class="serif-p" data-reveal>Enquanto você espera ser encontrado, outro negócio aparece no momento certo, apresenta uma solução e inicia a conversa primeiro.</p>
-      <p class="assinatura" data-reveal>É aqui que eu entro</p>
+      <p class="assinatura" data-reveal>É aqui que eu entro.</p>
     </div>
   </div>
 </section>
