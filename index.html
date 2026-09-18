@@ -32,9 +32,26 @@
 
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  html,body{margin:0;background:var(--pedra);color:var(--carvao)}
+  html,body{margin:0;background:var(--carvao);color:var(--carvao)}
   body{font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
-  section,header,footer{background:var(--bg);color:var(--fg)}
+  section,header,footer{background:var(--bg);color:var(--fg);position:relative;z-index:1}
+
+  /* ---------- cena (three.js) atrás das seções escuras ---------- */
+  #scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
+  .dark{background:transparent;overflow:clip}
+  .dark>.wrap,.dark>.stage{position:relative;z-index:2}
+  /* luz âmbar difusa que se move + grão fino */
+  .dark::before{content:"";position:absolute;inset:-20%;z-index:0;pointer-events:none;
+    background:radial-gradient(38% 42% at var(--lx,78%) var(--ly,30%),rgba(224,163,58,.20),rgba(224,163,58,0) 70%);
+    animation:luz 22s ease-in-out infinite alternate;will-change:transform}
+  .dark::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:180px 180px}
+  .decisao{--lx:22%;--ly:70%}
+  .metodo{--lx:80%;--ly:80%}
+  .cta{--lx:70%;--ly:25%}
+  @keyframes luz{from{transform:translate3d(-4%,-3%,0) scale(1)}to{transform:translate3d(4%,5%,0) scale(1.12)}}
+  .no-webgl #scene{display:none}
   a{color:inherit}
   img{max-width:100%;display:block}
   h1,h2,h3,p{margin:0}
@@ -216,6 +233,7 @@
 </head>
 <body>
 <div class="progress" aria-hidden="true"></div>
+<canvas id="scene" aria-hidden="true"></canvas>
 
 <!-- ===== NAV ===== -->
 <header class="nav" id="topo">
@@ -498,6 +516,122 @@
 
   window.addEventListener("load", function(){ ScrollTrigger.refresh(); });
 })();
+</script>
+
+<!-- ===== cena: quem está procurando agora ===== -->
+<script type="importmap">
+{ "imports": { "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.module.min.js" } }
+</script>
+<script type="module">
+import * as THREE from "three";
+
+const canvas = document.getElementById("scene");
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobile  = matchMedia("(max-width: 900px)").matches;
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "low-power" });
+} catch (e) { document.documentElement.classList.add("no-webgl"); }
+
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setClearColor(0x000000, 0);
+
+  const CARVAO = 0x191816;
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(CARVAO, 3.5, 11);            // profundidade: o fundo some no carvão
+  const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 40);
+  camera.position.set(0, 0.3, 6);
+
+  /* o campo: pequenos quadrados cor de pedra = pessoas; os âmbar = quem procura agora */
+  const N = mobile ? 420 : 1100;
+  const AMB = mobile ? 26 : 64;
+  const spread = (n, w, h, d) => {
+    const a = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) {
+      a[i*3]   = (Math.random() - 0.5) * w;
+      a[i*3+1] = (Math.random() - 0.5) * h;
+      a[i*3+2] = (Math.random() - 0.5) * d - 1.5;
+    }
+    return a;
+  };
+  const mk = (n, color, size, opacity) => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(spread(n, 16, 10, 9), 3));
+    const m = new THREE.PointsMaterial({ color, size, transparent: true, opacity, sizeAttenuation: true, depthWrite: false });
+    return new THREE.Points(g, m);
+  };
+  const field = new THREE.Group();
+  const stone = mk(N,   0xD9D4CB, 0.034, 0.42);
+  const amber = mk(AMB, 0xE0A33A, 0.056, 0.9);
+  const amber2 = mk(Math.round(AMB * 0.6), 0xE0A33A, 0.05, 0.9);
+  field.add(stone, amber, amber2);
+  scene.add(field);
+
+  /* faixas: uma linha fina de pontos alinhados — "o caminho" */
+  const trail = (() => {
+    const n = mobile ? 90 : 160, a = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) {
+      const t = i / n;
+      a[i*3]   = -9 + t * 18;
+      a[i*3+1] = Math.sin(t * Math.PI * 1.4) * 1.6 - 0.6;
+      a[i*3+2] = -2.2 + Math.cos(t * 6) * 0.25;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(a, 3));
+    return new THREE.Points(g, new THREE.PointsMaterial({ color: 0xA29C92, size: 0.028, transparent: true, opacity: 0.55, depthWrite: false }));
+  })();
+  field.add(trail);
+
+  /* alvos: câmera viaja com o scroll, e inclina com o mouse */
+  const target = { x: 0, y: 0.3, z: 6, rot: 0 };
+  const mouse = { x: 0, y: 0 };
+  if (!mobile && !reduced) {
+    addEventListener("pointermove", e => {
+      mouse.x = (e.clientX / innerWidth - 0.5) * 0.6;
+      mouse.y = (e.clientY / innerHeight - 0.5) * 0.35;
+    }, { passive: true });
+  }
+  if (window.gsap && window.ScrollTrigger && !reduced) {
+    gsap.to(target, { y: -1.6, z: 4.6, rot: 0.9, ease: "none",
+      scrollTrigger: { trigger: document.body, start: "top top", end: "bottom bottom", scrub: 1.2 } });
+  }
+
+  /* só renderiza quando uma seção escura está na tela e a aba está visível */
+  let visible = 0, hidden = false, raf = 0;
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { visible += e.isIntersecting ? 1 : -1; });
+    visible = Math.max(0, visible);
+    loop();
+  }, { rootMargin: "10% 0px" });
+  document.querySelectorAll(".dark").forEach(s => io.observe(s));
+  document.addEventListener("visibilitychange", () => { hidden = document.hidden; loop(); });
+
+  const render = t => {
+    field.rotation.y = target.rot + t * 0.00002;
+    field.position.y = Math.sin(t * 0.0004) * 0.12;
+    stone.rotation.z = t * 0.000008;
+    amber.material.opacity  = 0.35 + 0.55 * (0.5 + 0.5 * Math.sin(t * 0.0011));
+    amber2.material.opacity = 0.35 + 0.55 * (0.5 + 0.5 * Math.sin(t * 0.0008 + 2.1));
+    camera.position.x += (target.x + mouse.x - camera.position.x) * 0.04;
+    camera.position.y += (target.y - mouse.y - camera.position.y) * 0.04;
+    camera.position.z += (target.z - camera.position.z) * 0.04;
+    camera.lookAt(0, camera.position.y * 0.5, -1);
+    renderer.render(scene, camera);
+  };
+  const tick = t => { raf = 0; if (!visible || hidden) return; render(t); raf = requestAnimationFrame(tick); };
+  const loop = () => { if (!raf && visible && !hidden && !reduced) raf = requestAnimationFrame(tick); };
+
+  if (reduced) { render(0); } else { loop(); }
+
+  addEventListener("resize", () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+    if (reduced) render(0);
+  });
+}
 </script>
 </body>
 </html>
