@@ -68,11 +68,8 @@
   .servicos{--lx:88%;--ly:15%}
   .filtro{--lx:20%;--ly:30%}
   .sobre{--lx:85%;--ly:75%}
-  /* número da seção, fantasma, atrás do título */
+  /* monograma fantasma atrás do "Quem sou" */
   .ghost{position:absolute;z-index:1;pointer-events:none;font-family:var(--serif);font-weight:400;font-size:clamp(200px,34vw,520px);line-height:1;letter-spacing:-.04em;color:var(--carvao);opacity:.045;user-select:none}
-  .tensao .ghost{right:-.05em;top:-.1em}
-  .servicos .ghost{left:-.06em;bottom:-.18em}
-  .filtro .ghost{right:-.05em;bottom:-.16em}
   .sobre .ghost{left:-.05em;top:-.12em}
   a{color:inherit}
   img{max-width:100%;display:block}
@@ -296,7 +293,6 @@
 
 <!-- ===== TENSÃO ===== -->
 <section class="tensao paper">
-  <span class="ghost" aria-hidden="true">?</span>
   <div class="wrap grid">
     <div class="label" data-reveal><b>Antes de tudo</b><span>O problema</span></div>
     <div class="texto">
@@ -336,7 +332,6 @@
 
 <!-- ===== SERVIÇOS ===== -->
 <section class="servicos paper" id="servicos">
-  <span class="ghost" aria-hidden="true">2</span>
   <div class="wrap">
     <div class="intro">
       <div class="eyebrow" data-reveal>Serviços</div>
@@ -399,7 +394,6 @@
 
 <!-- ===== FILTRO ===== -->
 <section class="filtro paper">
-  <span class="ghost" aria-hidden="true">ou</span>
   <div class="wrap">
     <h2 data-reveal>Isso é pra você se…</h2>
     <div class="cols">
