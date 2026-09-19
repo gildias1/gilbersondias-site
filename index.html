@@ -6,7 +6,7 @@
 <title>Gilberson Dias — Presença digital e soluções com IA para pequenas empresas</title>
 <meta name="description" content="Coloco pequenas empresas no caminho de quem já procura — site, Google Meu Negócio, Google Ads e Meta Ads — e faço a operação rodar com menos esforço, com automações e sistemas com IA.">
 <meta property="og:title" content="Gilberson Dias — No caminho de quem já procura.">
-<meta property="og:description" content="Presença digital e soluções com IA pra pequenas empresas serem encontradas — e funcionarem com menos esforço.">
+<meta property="og:description" content="Presença digital e soluções com IA pra empresas e profissionais serem encontrados — e funcionarem com menos esforço.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gilbersondias.com.br/">
 <meta name="theme-color" content="#191816">
@@ -114,11 +114,15 @@
   /* ---------- hero ---------- */
   .hero{position:relative;overflow:clip;padding-block:clamp(48px,7vh,96px) clamp(64px,10vh,120px)}
   .hero .grid{align-items:start;row-gap:clamp(36px,5vh,56px)}
-  .hero-title{grid-column:1/13;grid-row:2;font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6.3vw,6.6rem);line-height:1.02;letter-spacing:-.025em}
+  .hero-title{grid-column:1/13;grid-row:2;font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6.3vw,6.6rem);line-height:1.02;letter-spacing:-.025em;
+    /* alinhamento óptico com o parágrafo abaixo — um número só, fácil de calibrar */
+    margin-left:var(--otico,.02em)}
+  /* destaque do hero: cor, sem caixa */
+  .hero-title .mark{background:none;color:var(--accent);padding:0}
   .hero-title .line{display:block;overflow:hidden;white-space:nowrap;padding:.14em 0 .1em;margin:-.14em 0 -.1em}
   .hero-title .line>span{display:block}
   .hero-aside{grid-column:1/8;grid-row:3;display:grid;gap:28px}
-  .hero-meta{grid-column:7/13;grid-row:1;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);line-height:1.7}
+  .hero-meta{grid-column:7/13;grid-row:1;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);line-height:1.7;text-align:center}
   .hero-meta span{display:block;padding-top:12px;border-top:1px solid var(--line)}
   .hero .dot{position:absolute;right:calc(var(--gutter) * -1);bottom:-6vw;width:clamp(160px,28vw,420px);aspect-ratio:1;background:var(--ambar-dk);opacity:.16;pointer-events:none;will-change:transform}
   @media (max-width:900px){
@@ -281,7 +285,7 @@
       <span>Pequenas empresas<br>e autônomos</span>
     </div>
     <div class="hero-aside" data-reveal>
-      <p class="lead">Presença digital e soluções com IA pra pequenas empresas serem encontradas — e funcionarem com menos esforço.</p>
+      <p class="lead">Presença digital e soluções com IA pra empresas e profissionais serem encontrados — e funcionarem com menos esforço.</p>
       <div class="btns">
         <a class="btn" href="https://wa.me/5500000000000?text=Oi%2C%20Gilberson.%20Quero%20conversar%20sobre%20a%20minha%20empresa." target="_blank" rel="noopener">Conversar sobre a sua empresa
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
